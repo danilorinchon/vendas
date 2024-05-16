@@ -9,7 +9,10 @@ import br.com.ProjetoVendas.Model.Clientes;
 import java.sql.Connection;
 import static java.sql.JDBCType.NULL;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
@@ -17,21 +20,21 @@ import javax.swing.JOptionPane;
  * @author danilo
  */
 public class ClientesDAO {
-    
+
     private Connection con;
-    
-    public ClientesDAO(){
-        
+
+    public ClientesDAO() {
+
         this.con = new ConnectionFactory().getConnection();
     }
-    
+
     //metodo cadastrar cliente
-    public void cadastrarCliente(Clientes obj){
+    public void cadastrarCliente(Clientes obj) {
         try {
             // 1 passo criar o comando sql
-            String sql = "INSERT INTO `tb_clientes` (`id`, `nome`, `rg`, `cpf`, `email`, `telefone`, `celular`, `cep`, `endereco`, `numero`, `complemento`, `bairro`, `cidade`, `estado`)" 
-                            + "VALUES (NULL,?,?,?,?,?,?,?,?,?,?,?,?,?);"; 
-            
+            String sql = "INSERT INTO `tb_clientes` (`id`, `nome`, `rg`, `cpf`, `email`, `telefone`, `celular`, `cep`, `endereco`, `numero`, `complemento`, `bairro`, `cidade`, `estado`)"
+                    + "VALUES (NULL,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+
             // 2 passo conectar no DB e organizar o comando sql
             PreparedStatement stmt = con.prepareStatement(sql);
             //stmt.setInt(1, NULL);
@@ -48,29 +51,71 @@ public class ClientesDAO {
             stmt.setString(11, obj.getBairro());
             stmt.setString(12, obj.getCidade());
             stmt.setString(13, obj.getEstado());
-            
+
             // 3 passo executar o comando sql
             stmt.execute();
             stmt.close();
 
             JOptionPane.showMessageDialog(null, "Cadastrado com sucesso");
-            
+
         } catch (SQLException erro) {
             JOptionPane.showMessageDialog(null, "Ops! O cadastro do cliente falhou. Erro: " + erro);
 
         }
-        
-        
+
     }
-    
+
     //metodo alterar cliente
-    public void alterarCliente(){
-        
+    public void alterarCliente() {
+
     }
-    
+
     //metodo excluir cliente
-    public void excluirCliente(){
-        
+    public void excluirCliente() {
+
+    }
+
+    //metodo listar todos os clientes
+    public List<Clientes> listarClientes() {
+
+        try {
+            //primeiro passo criar a lista
+            List<Clientes> lista = new ArrayList<>();
+
+            // segundo passo criar o comando sql, organizar e executar
+            String sql = "select * from tb_clientes";
+            PreparedStatement stmt = con.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Clientes obj = new Clientes();
+                obj.setId(rs.getInt("id"));
+                obj.setNome(rs.getString("nome"));
+                obj.setRg(rs.getString("rg"));
+                obj.setCpf(rs.getString("cpf"));
+                obj.setEmail(rs.getString("email"));
+                obj.setTelefone(rs.getString("telefone"));
+                obj.setCelular(rs.getString("celular"));
+                obj.setCep(rs.getString("cep"));
+                obj.setEndereco(rs.getString("endereco"));
+                obj.setNumero(rs.getInt("numero"));
+                obj.setComplemento(rs.getString("complemento"));
+                obj.setBairro(rs.getString("bairro"));
+                obj.setCidade(rs.getString("cidade"));
+                obj.setEstado(rs.getString("estado"));
+
+                // adicionar na lista
+                lista.add(obj);
+
+            }
+            return lista;
+
+        } catch (SQLException erro) {
+
+            JOptionPane.showMessageDialog(null, "Erro: " + erro);
+            return null;
+        }
+
     }
 
 }

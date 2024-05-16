@@ -6,6 +6,8 @@ package br.com.ProjetoVendas.View;
 
 import br.com.ProjetoVendas.DAO.ClientesDAO;
 import br.com.ProjetoVendas.Model.Clientes;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -13,6 +15,33 @@ import br.com.ProjetoVendas.Model.Clientes;
  */
 public class FrmCliente extends javax.swing.JFrame {
 
+    //Metodo listar tabela
+    public void listar(){
+        
+        ClientesDAO dao = new ClientesDAO();
+        List<Clientes> lista = dao.listarClientes();
+        DefaultTableModel dados = (DefaultTableModel)tabelaClientes.getModel();
+        dados.setNumRows(0);
+        for(Clientes c: lista){
+            dados.addRow(new Object[]{
+                c.getId(),
+                c.getNome(),
+                c.getRg(),
+                c.getCpf(),
+                c.getEmail(),
+                c.getTelefone(),
+                c.getCelular(),
+                c.getCep(),
+                c.getEndereco(),
+                c.getNumero(),
+                c.getComplemento(),                
+                c.getBairro(),
+                c.getCidade(),
+                c.getEstado()
+            });
+        }
+    }
+    
     /**
      * Creates new form FrmCliente
      */
@@ -66,13 +95,18 @@ public class FrmCliente extends javax.swing.JFrame {
         txtNomeLista = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tabelaClientes = new javax.swing.JTable();
         btnNovo = new javax.swing.JButton();
         btnSalvar = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
         btnExcluir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(0, 102, 204));
 
@@ -223,7 +257,7 @@ public class FrmCliente extends javax.swing.JFrame {
                                 .addComponent(txtComplemento))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(txtCep, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                                 .addComponent(jLabel8)
                                 .addGap(12, 12, 12)
                                 .addComponent(txtEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, 448, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -321,7 +355,7 @@ public class FrmCliente extends javax.swing.JFrame {
                     .addComponent(jLabel10)
                     .addComponent(jLabel13)
                     .addComponent(cmbUf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(101, Short.MAX_VALUE))
+                .addContainerGap(89, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Dados Pessoais", jPanel2);
@@ -336,7 +370,7 @@ public class FrmCliente extends javax.swing.JFrame {
         jButton1.setFont(new java.awt.Font("Liberation Sans", 0, 14)); // NOI18N
         jButton1.setText("Pesquisar");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tabelaClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -344,7 +378,7 @@ public class FrmCliente extends javax.swing.JFrame {
                 "Código:", "Nome:", "RG:", "CPF:", "e-mail:", "Telefone:", "Celular:", "CEP:", "Endereço:", "No:", "Complemento:", "Bairro:", "Cidade:", "UF:"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tabelaClientes);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -478,6 +512,11 @@ public class FrmCliente extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnSalvarActionPerformed
 
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        // Carrega a lista
+         listar();
+    }//GEN-LAST:event_formWindowActivated
+
     /**
      * @param args the command line arguments
      */
@@ -542,7 +581,7 @@ public class FrmCliente extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tabelaClientes;
     private javax.swing.JTextField txtBairro;
     private javax.swing.JFormattedTextField txtCelular;
     private javax.swing.JFormattedTextField txtCep;
