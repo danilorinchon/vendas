@@ -378,6 +378,11 @@ public class FrmCliente extends javax.swing.JFrame {
                 "Código:", "Nome:", "RG:", "CPF:", "e-mail:", "Telefone:", "Celular:", "CEP:", "Endereço:", "No:", "Complemento:", "Bairro:", "Cidade:", "UF:"
             }
         ));
+        tabelaClientes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelaClientesMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tabelaClientes);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -516,6 +521,11 @@ public class FrmCliente extends javax.swing.JFrame {
         // Carrega a lista
          listar();
     }//GEN-LAST:event_formWindowActivated
+
+    private void tabelaClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaClientesMouseClicked
+        // Pega os dados
+        jTabbedPane1.setSelectedIndex(0);
+    }//GEN-LAST:event_tabelaClientesMouseClicked
 
     /**
      * @param args the command line arguments

@@ -68,11 +68,11 @@ public class ClientesDAO {
     //metodo alterar cliente
     public void alterarCliente(Clientes obj) {
 
-                   try {
+        try {
             // 1 passo criar o comando sql
             String sql = "update `tb_clientes` set  `nome`=?, `rg`=?, `cpf`=?, `email`=?,"
-                    +"`telefone`=?, `celular`=?, `cep`=?, `endereco`=?, `numero`=?,"
-                    +"`complemento`=?, `bairro`=?, `cidade`=?, `estado`=? where `id`=?)";
+                    + "`telefone`=?, `celular`=?, `cep`=?, `endereco`=?, `numero`=?,"
+                    + "`complemento`=?, `bairro`=?, `cidade`=?, `estado`=? where `id`=?)"
                     + "VALUES (NULL,?,?,?,?,?,?,?,?,?,?,?,?,?);";
 
             // 2 passo conectar no DB e organizar o comando sql
