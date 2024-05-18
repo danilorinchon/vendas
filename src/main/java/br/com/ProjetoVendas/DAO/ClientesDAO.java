@@ -70,13 +70,16 @@ public class ClientesDAO {
 
         try {
             // 1 passo criar o comando sql
-            String sql = "update `tb_clientes` set  `nome`=?, `rg`=?, `cpf`=?, `email`=?,"
-                    + "`telefone`=?, `celular`=?, `cep`=?, `endereco`=?, `numero`=?,"
-                    + "`complemento`=?, `bairro`=?, `cidade`=?, `estado`=? where `id`=?)"
-                    + "VALUES (NULL,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+            String sql = "UPDATE `tb_clientes` SET `nome`=?, `rg`=?, `cpf`=?, `email`=?, "
+                    + "`telefone`=?, `celular`=?, `cep`=?, `endereco`=?, `numero`=?, "
+                    + "`complemento`=?, `bairro`=?, `cidade`=?, `estado`=? WHERE `tb_clientes`.`id`=?";
+            
+            //UPDATE `tb_clientes` SET `nome` = 'danilo rinchon teste 2', `email` = 'danilo@teste.com.br', 
+            //`cep` = '55555-666', `endereco` = 'rua do codigo 2' WHERE `tb_clientes`.`id` = 6
 
             // 2 passo conectar no DB e organizar o comando sql
             PreparedStatement stmt = con.prepareStatement(sql);
+            
             //stmt.setInt(1, NULL);
             stmt.setString(1, obj.getNome());
             stmt.setString(2, obj.getRg());
@@ -93,6 +96,9 @@ public class ClientesDAO {
             stmt.setString(13, obj.getEstado());
             stmt.setInt(14, obj.getId());
 
+            System.out.println("SQL: " + stmt);
+            JOptionPane.showMessageDialog(null, "Comando sql gerado: " + stmt);
+            
             // 3 passo executar o comando sql
             stmt.execute();
             stmt.close();
