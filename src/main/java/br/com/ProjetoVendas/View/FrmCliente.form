@@ -30,13 +30,15 @@
           <Component id="jTabbedPane1" alignment="0" max="32767" attributes="0"/>
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="275" max="-2" attributes="0"/>
-              <Component id="btnNovo" linkSize="1" min="-2" pref="89" max="-2" attributes="0"/>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="btnSalvar" linkSize="1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="btnEditar" linkSize="1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="btnExcluir" linkSize="1" min="-2" max="-2" attributes="0"/>
+              <Component id="btnNovo" linkSize="3" min="-2" pref="85" max="-2" attributes="0"/>
+              <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
+              <Component id="btnSalvar" linkSize="3" min="-2" pref="85" max="-2" attributes="0"/>
+              <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
+              <Component id="btnEditar" linkSize="3" min="-2" pref="85" max="-2" attributes="0"/>
+              <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
+              <Component id="btnExcluir" linkSize="3" min="-2" pref="85" max="-2" attributes="0"/>
+              <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
+              <Component id="btnLimpar" linkSize="3" min="-2" pref="88" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
@@ -47,12 +49,13 @@
               <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
               <Component id="jTabbedPane1" min="-2" pref="348" max="-2" attributes="0"/>
-              <EmptySpace min="0" pref="18" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="btnSalvar" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnEditar" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnExcluir" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnNovo" linkSize="2" alignment="3" min="-2" pref="42" max="-2" attributes="0"/>
+                  <Component id="btnSalvar" linkSize="4" alignment="3" min="-2" pref="42" max="-2" attributes="0"/>
+                  <Component id="btnEditar" linkSize="4" alignment="3" min="-2" pref="42" max="-2" attributes="0"/>
+                  <Component id="btnExcluir" linkSize="4" alignment="3" min="-2" pref="42" max="-2" attributes="0"/>
+                  <Component id="btnNovo" linkSize="4" alignment="3" min="-2" pref="42" max="-2" attributes="0"/>
+                  <Component id="btnLimpar" linkSize="4" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
           </Group>
@@ -747,6 +750,14 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnExcluirActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnLimpar">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Limpar"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLimparActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>
