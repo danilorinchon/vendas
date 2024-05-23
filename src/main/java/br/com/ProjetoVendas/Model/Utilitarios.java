@@ -13,18 +13,16 @@ import javax.swing.JTextField;
  * @author ds290
  */
 public class Utilitarios {
-    
+
     //Metodo Limpar Campos do Formulário
-    public void limpaTela(JPanel container){
+    public void limpaTela(JPanel container) {
         Component components[] = container.getComponents();
-        for(Component component:components){
-            if(component instanceof JTextField){
+        for (Component component : components) {
+            if (component instanceof JTextField) {
                 ((JTextField) component).setText(null);
             }
         }
         
-        
     }
-    
     
 }

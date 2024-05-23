@@ -8,6 +8,7 @@ import br.com.ProjetoVendas.DAO.ClientesDAO;
 import br.com.ProjetoVendas.Model.Clientes;
 import br.com.ProjetoVendas.Model.Utilitarios;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -17,13 +18,13 @@ import javax.swing.table.DefaultTableModel;
 public class FrmCliente extends javax.swing.JFrame {
 
     //Metodo listar tabela
-    public void listar(){
-        
+    public void listar() {
+
         ClientesDAO dao = new ClientesDAO();
         List<Clientes> lista = dao.listarClientes();
-        DefaultTableModel dados = (DefaultTableModel)tabelaClientes.getModel();
+        DefaultTableModel dados = (DefaultTableModel) tabelaClientes.getModel();
         dados.setNumRows(0);
-        for(Clientes c: lista){
+        for (Clientes c : lista) {
             dados.addRow(new Object[]{
                 c.getId(),
                 c.getNome(),
@@ -35,14 +36,14 @@ public class FrmCliente extends javax.swing.JFrame {
                 c.getCep(),
                 c.getEndereco(),
                 c.getNumero(),
-                c.getComplemento(),                
+                c.getComplemento(),
                 c.getBairro(),
                 c.getCidade(),
                 c.getEstado()
             });
         }
     }
-    
+
     /**
      * Creates new form FrmCliente
      */
@@ -138,6 +139,7 @@ public class FrmCliente extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Liberation Sans", 0, 14)); // NOI18N
         jLabel2.setText("Código:");
 
+        txtCodigo.setEditable(false);
         txtCodigo.setFont(new java.awt.Font("Liberation Sans", 0, 14)); // NOI18N
 
         jLabel3.setFont(new java.awt.Font("Liberation Sans", 0, 14)); // NOI18N
@@ -227,6 +229,16 @@ public class FrmCliente extends javax.swing.JFrame {
             ex.printStackTrace();
         }
         txtCpf.setFont(new java.awt.Font("Liberation Sans", 0, 14)); // NOI18N
+        txtCpf.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCpfActionPerformed(evt);
+            }
+        });
+        txtCpf.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCpfKeyTyped(evt);
+            }
+        });
 
         cmbUf.setFont(new java.awt.Font("Liberation Sans", 0, 14)); // NOI18N
         cmbUf.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SP", "AM", "RJ", "PR" }));
@@ -422,13 +434,18 @@ public class FrmCliente extends javax.swing.JFrame {
                     .addComponent(txtPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnPesquisar))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(142, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("Consulta de Clientes", painelConsultaClientes);
 
         btnNovo.setText("+ Novo");
+        btnNovo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNovoActionPerformed(evt);
+            }
+        });
 
         btnSalvar.setText("Salvar");
         btnSalvar.addActionListener(new java.awt.event.ActionListener() {
@@ -496,88 +513,94 @@ public class FrmCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_txtComplementoActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-                // Botão Editar
+        // Botão Editar
 
-            Clientes obj = new Clientes();
-            
-            obj.setNome(txtNome.getText());
-            obj.setRg(txtRg.getText());
-            obj.setCpf(txtCpf.getText());
-            obj.setEmail(txtEmail.getText());
-            obj.setTelefone(txtTelefone.getText());
-            obj.setCelular(txtCelular.getText());
-            obj.setCep(txtCep.getText());
-            obj.setEndereco(txtEndereco.getText());
-            obj.setNumero(Integer.parseInt(intNumero.getText()));
-            obj.setComplemento(txtComplemento.getText());
-            obj.setBairro(txtBairro.getText());
-            obj.setCidade(txtCidade.getText());
-            obj.setEstado(cmbUf.getSelectedItem().toString());
-            
-            obj.setId(Integer.parseInt(txtCodigo.getText()));
+        Clientes obj = new Clientes();
 
-            ClientesDAO dao = new ClientesDAO();
-            
-            dao.alterarCliente(obj);
+        obj.setNome(txtNome.getText());
+        obj.setRg(txtRg.getText());
+        obj.setCpf(txtCpf.getText());
+        obj.setEmail(txtEmail.getText());
+        obj.setTelefone(txtTelefone.getText());
+        obj.setCelular(txtCelular.getText());
+        obj.setCep(txtCep.getText());
+        obj.setEndereco(txtEndereco.getText());
+        obj.setNumero(Integer.parseInt(intNumero.getText()));
+        obj.setComplemento(txtComplemento.getText());
+        obj.setBairro(txtBairro.getText());
+        obj.setCidade(txtCidade.getText());
+        obj.setEstado(cmbUf.getSelectedItem().toString());
 
-            new Utilitarios().limpaTela(painelDadosPessoais);
-        
+        obj.setId(Integer.parseInt(txtCodigo.getText()));
+
+        ClientesDAO dao = new ClientesDAO();
+
+        dao.alterarCliente(obj);
+
+        new Utilitarios().limpaTela(painelDadosPessoais);
+
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         // Botão Exlcluir
 
-            Clientes obj = new Clientes();
-            
-            obj.setId(Integer.parseInt(txtCodigo.getText()));
+        Clientes obj = new Clientes();
 
-            ClientesDAO dao = new ClientesDAO();
-            
-            dao.excluirCliente(obj);
-        
+        obj.setId(Integer.parseInt(txtCodigo.getText()));
+
+        ClientesDAO dao = new ClientesDAO();
+
+        dao.excluirCliente(obj);
+        new Utilitarios().limpaTela(painelDadosPessoais);
+
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         // Botão Salvar
 
-            Clientes obj = new Clientes();
-            obj.setNome(txtNome.getText());
-            obj.setRg(txtRg.getText());
-            obj.setCpf(txtCpf.getText());
-            obj.setEmail(txtEmail.getText());
-            obj.setTelefone(txtTelefone.getText());
-            obj.setCelular(txtCelular.getText());
-            obj.setCep(txtCep.getText());
-            obj.setEndereco(txtEndereco.getText());
+        Clientes obj = new Clientes();
+        obj.setNome(txtNome.getText());
+        obj.setRg(txtRg.getText());
+        obj.setCpf(txtCpf.getText());
+        obj.setEmail(txtEmail.getText());
+        obj.setTelefone(txtTelefone.getText());
+        obj.setCelular(txtCelular.getText());
+        obj.setCep(txtCep.getText());
+        obj.setEndereco(txtEndereco.getText());
+        try {
             obj.setNumero(Integer.parseInt(intNumero.getText()));
-            obj.setComplemento(txtComplemento.getText());
-            obj.setBairro(txtBairro.getText());
-            obj.setCidade(txtCidade.getText());
-            obj.setEstado(cmbUf.getSelectedItem().toString());
+        } catch (Exception erro) {
+            JOptionPane.showMessageDialog(null, "Ops! o campo número é obrigatório! Ele deve conter apenas números, ex: 345");
+            return;
+        }
 
-            ClientesDAO dao = new ClientesDAO();
-            
-            dao.cadastrarCliente(obj);
+        obj.setComplemento(txtComplemento.getText());
+        obj.setBairro(txtBairro.getText());
+        obj.setCidade(txtCidade.getText());
+        obj.setEstado(cmbUf.getSelectedItem().toString());
 
+        ClientesDAO dao = new ClientesDAO();
 
+        dao.cadastrarCliente(obj);
+        new Utilitarios().limpaTela(painelDadosPessoais);
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         // Carrega a lista
-         listar();
+        listar();
     }//GEN-LAST:event_formWindowActivated
 
     private void tabelaClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaClientesMouseClicked
         // Pega os dados
         jTabbedPane1.setSelectedIndex(0);
-        
+
         txtCodigo.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(), 0).toString());
         txtNome.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(), 1).toString());
         txtRg.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(), 2).toString());
         txtCpf.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(), 3).toString());
         txtEmail.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(), 4).toString());
         txtTelefone.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(), 5).toString());
-        txtCelular.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(), 6).toString()); 
+        txtCelular.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(), 6).toString());
         txtCep.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(), 7).toString());
         txtEndereco.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(), 8).toString());
         intNumero.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(), 9).toString());
@@ -585,22 +608,22 @@ public class FrmCliente extends javax.swing.JFrame {
         txtBairro.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(), 11).toString());
         txtCidade.setText(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(), 12).toString());
         cmbUf.setSelectedItem(tabelaClientes.getValueAt(tabelaClientes.getSelectedRow(), 13).toString());
-        
-        
+
+
     }//GEN-LAST:event_tabelaClientesMouseClicked
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
         // Botão Pesquisar
-        
-        String nome ="%" + txtPesquisa.getText()  + "%";
-        
+
+        String nome = "%" + txtPesquisa.getText() + "%";
+
         ClientesDAO dao = new ClientesDAO();
         List<Clientes> lista = dao.buscaClientePorNome(nome);
-        
-        DefaultTableModel dados = (DefaultTableModel)tabelaClientes.getModel();
+
+        DefaultTableModel dados = (DefaultTableModel) tabelaClientes.getModel();
         dados.setNumRows(0);
-        
-        for(Clientes c: lista){
+
+        for (Clientes c : lista) {
             dados.addRow(new Object[]{
                 c.getId(),
                 c.getNome(),
@@ -612,26 +635,26 @@ public class FrmCliente extends javax.swing.JFrame {
                 c.getCep(),
                 c.getEndereco(),
                 c.getNumero(),
-                c.getComplemento(),                
+                c.getComplemento(),
                 c.getBairro(),
                 c.getCidade(),
                 c.getEstado()
             });
         }
-        
+
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     private void txtPesquisaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisaKeyPressed
         // Pesquisar enquanto se digita o nome
-        String nome ="%" + txtPesquisa.getText()  + "%";
-        
+        String nome = "%" + txtPesquisa.getText() + "%";
+
         ClientesDAO dao = new ClientesDAO();
         List<Clientes> lista = dao.buscaClientePorNome(nome);
-        
-        DefaultTableModel dados = (DefaultTableModel)tabelaClientes.getModel();
+
+        DefaultTableModel dados = (DefaultTableModel) tabelaClientes.getModel();
         dados.setNumRows(0);
-        
-        for(Clientes c: lista){
+
+        for (Clientes c : lista) {
             dados.addRow(new Object[]{
                 c.getId(),
                 c.getNome(),
@@ -643,13 +666,52 @@ public class FrmCliente extends javax.swing.JFrame {
                 c.getCep(),
                 c.getEndereco(),
                 c.getNumero(),
-                c.getComplemento(),                
+                c.getComplemento(),
                 c.getBairro(),
                 c.getCidade(),
                 c.getEstado()
             });
         }
     }//GEN-LAST:event_txtPesquisaKeyPressed
+
+    private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
+        // Cadatrar novo cliente
+        new Utilitarios().limpaTela(painelDadosPessoais);
+    }//GEN-LAST:event_btnNovoActionPerformed
+
+    private void txtCpfKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCpfKeyTyped
+        // Busca cliente por CPF após a tecla enter ser apertada
+        String CPF = txtCpf.getText();
+        Clientes obj = new Clientes();
+        ClientesDAO dao = new ClientesDAO();
+
+        obj = dao.consultaClientePorCPF(CPF);
+
+        if(obj.getNome()!= null){
+        // Exibir os dados do obj nos campos de texto
+        txtCodigo.setText(String.valueOf(obj.getId()));
+        txtNome.setText(obj.getNome());
+        txtRg.setText(obj.getRg());
+        //txtCpf.setText(obj.getCpf());
+        txtEmail.setText(obj.getEmail());
+        txtTelefone.setText(obj.getTelefone());
+        txtCelular.setText(obj.getCelular());
+        txtCep.setText(obj.getCep());
+        txtEndereco.setText(obj.getEndereco());
+        intNumero.setText(String.valueOf(obj.getNumero()));
+        txtComplemento.setText(obj.getComplemento());
+        txtBairro.setText(obj.getBairro());
+        txtCidade.setText(obj.getCidade());
+        cmbUf.setSelectedItem(obj.getEstado());
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Cliente não encontrado!");
+        }
+    }//GEN-LAST:event_txtCpfKeyTyped
+
+    private void txtCpfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCpfActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCpfActionPerformed
 
     /**
      * @param args the command line arguments

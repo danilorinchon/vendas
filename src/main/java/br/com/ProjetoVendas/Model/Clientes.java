@@ -9,10 +9,8 @@ package br.com.ProjetoVendas.Model;
  * @author danilo
  */
 public class Clientes {
-    
-    
+
     // Atributos
-    
     private int id;
     private String nome;
     private String rg;
@@ -27,9 +25,8 @@ public class Clientes {
     private String bairro;
     private String cidade;
     private String estado;
-    
-    // Metodos Getters and Setters
 
+    // Metodos Getters and Setters
     public int getId() {
         return id;
     }
@@ -141,7 +138,5 @@ public class Clientes {
     public void setEstado(String estado) {
         this.estado = estado;
     }
-    
-    
-    
+
 }
