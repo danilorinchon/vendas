@@ -7,6 +7,7 @@ package br.com.ProjetoVendas.View;
 import br.com.ProjetoVendas.DAO.ClientesDAO;
 import br.com.ProjetoVendas.Model.Clientes;
 import br.com.ProjetoVendas.Model.Utilitarios;
+import java.awt.event.KeyEvent;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -229,12 +230,20 @@ public class FrmCliente extends javax.swing.JFrame {
             ex.printStackTrace();
         }
         txtCpf.setFont(new java.awt.Font("Liberation Sans", 0, 14)); // NOI18N
+        txtCpf.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                txtCpfMouseEntered(evt);
+            }
+        });
         txtCpf.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtCpfActionPerformed(evt);
             }
         });
         txtCpf.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtCpfKeyPressed(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtCpfKeyTyped(evt);
             }
@@ -679,39 +688,60 @@ public class FrmCliente extends javax.swing.JFrame {
         new Utilitarios().limpaTela(painelDadosPessoais);
     }//GEN-LAST:event_btnNovoActionPerformed
 
+    /*    txtCpfKeyTyped.addKeyListener(new KeyAdapter() {
+    @Override
+    public void keyPressed(KeyEvent arg0) {
+        if(arg0.getKeyCode() == KeyEvent.VK_ENTER) {
+            System.out.println("Apertou ENTER");
+        }
+    }
+});
+     */
+
     private void txtCpfKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCpfKeyTyped
-        // Busca cliente por CPF após a tecla enter ser apertada
-        String CPF = txtCpf.getText();
-        Clientes obj = new Clientes();
-        ClientesDAO dao = new ClientesDAO();
 
-        obj = dao.consultaClientePorCPF(CPF);
-
-        if(obj.getNome()!= null){
-        // Exibir os dados do obj nos campos de texto
-        txtCodigo.setText(String.valueOf(obj.getId()));
-        txtNome.setText(obj.getNome());
-        txtRg.setText(obj.getRg());
-        //txtCpf.setText(obj.getCpf());
-        txtEmail.setText(obj.getEmail());
-        txtTelefone.setText(obj.getTelefone());
-        txtCelular.setText(obj.getCelular());
-        txtCep.setText(obj.getCep());
-        txtEndereco.setText(obj.getEndereco());
-        intNumero.setText(String.valueOf(obj.getNumero()));
-        txtComplemento.setText(obj.getComplemento());
-        txtBairro.setText(obj.getBairro());
-        txtCidade.setText(obj.getCidade());
-        cmbUf.setSelectedItem(obj.getEstado());
-        }
-        else{
-            JOptionPane.showMessageDialog(null, "Cliente não encontrado!");
-        }
     }//GEN-LAST:event_txtCpfKeyTyped
 
     private void txtCpfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCpfActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCpfActionPerformed
+
+    private void txtCpfKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCpfKeyPressed
+        // Busca cliente por CPF após a tecla enter ser apertada
+
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+
+            String CPF = txtCpf.getText();
+            Clientes obj = new Clientes();
+            ClientesDAO dao = new ClientesDAO();
+
+            obj = dao.consultaClientePorCPF(CPF);
+
+            if (obj.getNome() != null) {
+                // Exibir os dados do obj nos campos de texto
+                txtCodigo.setText(String.valueOf(obj.getId()));
+                txtNome.setText(obj.getNome());
+                txtRg.setText(obj.getRg());
+                //txtCpf.setText(obj.getCpf());
+                txtEmail.setText(obj.getEmail());
+                txtTelefone.setText(obj.getTelefone());
+                txtCelular.setText(obj.getCelular());
+                txtCep.setText(obj.getCep());
+                txtEndereco.setText(obj.getEndereco());
+                intNumero.setText(String.valueOf(obj.getNumero()));
+                txtComplemento.setText(obj.getComplemento());
+                txtBairro.setText(obj.getBairro());
+                txtCidade.setText(obj.getCidade());
+                cmbUf.setSelectedItem(obj.getEstado());
+            } else {
+                JOptionPane.showMessageDialog(null, "Cliente não encontrado!");
+            }
+        }
+    }//GEN-LAST:event_txtCpfKeyPressed
+
+    private void txtCpfMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtCpfMouseEntered
+
+    }//GEN-LAST:event_txtCpfMouseEntered
 
     /**
      * @param args the command line arguments
